@@ -6,6 +6,7 @@ using Rage;
 using LSPD_First_Response.Mod.API;
 using LSPD_First_Response.Mod.Callouts;
 using Rage.Native;
+using System.Collections.Specialized;
 
 namespace YobbinCallouts.Callouts
 {
@@ -16,8 +17,11 @@ namespace YobbinCallouts.Callouts
         private Vector3 MainSpawnPoint;
         private Vector3 MainDestination;
         private Vector3 BeachSpawnPoint;
+        private Vector3 AccidentLocation;
+      
 
         private Blip Area;
+        private Blip Accident;
 
         private uint MainTrafficBreak;
 
@@ -49,10 +53,8 @@ namespace YobbinCallouts.Callouts
             }
             ShowCalloutAreaBlipBeforeAccepting(MainSpawnPoint, 100);    //Callout Blip Circle with radius 100m
             AddMinimumDistanceCheck(150f, MainSpawnPoint);   //Player must be 150m or further away
-
             CalloutMessage = "Traffic Break";
             CalloutPosition = MainSpawnPoint;
-
             Functions.PlayScannerAudio("WE_HAVE_01");   //Add more audio later
             GameFiber.Wait(1000);
             return base.OnBeforeCalloutDisplayed();
@@ -68,7 +70,7 @@ namespace YobbinCallouts.Callouts
 
             System.Random r = new System.Random();
             int Scenario = r.Next(0, 0);
-            switch (Scenario)   //Scenario Chooser, I don't think I'm gonna add another one fore a while
+            switch (Scenario)   //Scenario Chooser, I don't think I'm gonna add another one for a while
             {
                 case 0:
                     MainScenario = 0;
@@ -116,6 +118,10 @@ namespace YobbinCallouts.Callouts
                     }
                     GameFiber.Wait(1000);
                     Game.DisplayNotification("Dispatch, We are Starting the ~y~Traffic Break.");
+                    AccidentLocation = new Vector3(-2091.691f, -446.1866f, 11.36965f);
+                    Accident = new Blip(AccidentLocation, 20);
+                    Accident.Color = System.Drawing.Color.Yellow;
+                    Accident.IsRouteEnabled = true;
                     GameFiber.Wait(1000);
                     Area.Delete();
                     World.RemoveSpeedZone(MainTrafficBreak);
