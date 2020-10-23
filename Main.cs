@@ -86,7 +86,7 @@ namespace YobbinCallouts
             Game.LogTrivial("Please Report all Bugs in the Discord Server.");
             Game.LogTrivial("==========YOBBINCALLOUTS INFORMATION==========");
 
-            if (Config.BrokenDownVehicle == true || !Config.INIFile.Exists())
+           /* if (Config.BrokenDownVehicle == true || !Config.INIFile.Exists())
             {
                 //Functions.RegisterCallout(typeof(Callouts.BrokenDownVehicle));
                 Game.LogTrivial("YOBBINCALLOUTS: Broken Down Vehicle Callout Registered."); //Temporarily Disabled While I Fix Something
@@ -101,6 +101,7 @@ namespace YobbinCallouts
                 Functions.RegisterCallout(typeof(Callouts.ShotSpotter));    //Shot Spotter Callout Under Development Right Now
                 Game.LogTrivial("YOBBINCALLOUTS: Shot Spotter Callout Registered.");
             }
+            */
             if (Config.TrafficBreak == true || !Config.INIFile.Exists())
             {
                 Functions.RegisterCallout(typeof(Callouts.TrafficBreak));    //Also under development
